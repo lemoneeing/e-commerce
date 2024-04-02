@@ -1,6 +1,6 @@
 # E-commerce
 E-commerce Server 구축 Project
-
+<br /><br />
 ## 요구사항 분석(Sequence Diagram) ##
 ### 📁 Money 충전
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/698fc3ae-1f47-4486-96f4-5889862276b6)
@@ -17,7 +17,27 @@ E-commerce Server 구축 Project
 ### 📁 결제
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/c74f3a91-27c0-4270-a8d5-b222eafb1a66)
 <br /><br />
-
+## API 명세
+#### 📗 Money 충전
+@Patch<br/>
+/user/{userId}/money/charge
+<br /><br />
+#### 📗 Money 조회
+@Get<br/>
+/user/{userId}/money
+<br /><br />
+#### 📗 상품 조회(기본 상세 조회)
+@Get<br/>
+/product/{productId}
+<br /><br />
+#### 📗 상품 주문
+@Patch<br/>
+/order
+<br /><br />
+#### 📗 주문 결제
+@Patch<br/>
+<I>상품 주문에서 Redirect로 결제 요청을 통해 시작할지 다른 방법을 쓸 지 아직 결정 못 함.</I>
+<br/><br/>
 ## ERD 설계
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/dd148bc0-4157-48e6-acb6-b81ca38da2ac)
 
