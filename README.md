@@ -6,6 +6,9 @@ E-commerce Server 구축 Project
 ### 📁 Money 충전
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/b4051ac1-cc22-41d3-a6ec-96b6179201d5)
 <br /><br />
+### 📁 상품 조회
+![image](https://github.com/lemoneeing/e-commerce/assets/138500282/fc44772b-1ffe-46aa-8112-76b7db974088)
+<br /><br />
 ### 📁 주문
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/b79f38e2-9645-4a62-8626-2cc73c7c970a)
 <br /><br />
