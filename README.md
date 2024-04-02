@@ -1,8 +1,7 @@
 # E-commerce
 E-commerce Server 구축 Project
 
-## 요구사항 분석(Sequence Diagram)
-
+## 요구사항 분석(Sequence Diagram) ##
 ### 📁 Money 충전
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/698fc3ae-1f47-4486-96f4-5889862276b6)
 <br /><br />
@@ -17,3 +16,9 @@ E-commerce Server 구축 Project
 <br /><br />
 ### 📁 결제
 ![image](https://github.com/lemoneeing/e-commerce/assets/138500282/c74f3a91-27c0-4270-a8d5-b222eafb1a66)
+<br /><br />
+
+## ERD 설계
+![image](https://github.com/lemoneeing/e-commerce/assets/138500282/dd148bc0-4157-48e6-acb6-b81ca38da2ac)
+
+
