@@ -18,4 +18,14 @@ public class controllerTest {
 
         Assertions.assertThat(ctr.showMoney(uId)).contains("money: " + ctr.fakeWallet.getMoney(uId));
     }
+
+    @Test
+    public void 머니_충전(){
+        String uId = "1";
+        Long initMoney = ctr.fakeWallet.getMoney(uId);
+        Long amount = 10000L;
+
+        ctr.chargeMoney(uId, amount);
+        Assertions.assertThat(ctr.fakeWallet.getMoney(uId)).isEqualTo(initMoney + amount);
+    }
 }
