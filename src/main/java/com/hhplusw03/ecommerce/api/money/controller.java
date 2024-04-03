@@ -16,4 +16,12 @@ public class controller {
     public String showMoney(@RequestParam String userId){
         return "userId: " + userId +"\nmoney: " + fakeWallet.getMoney(userId);
     }
+
+    // 사용자 Id 로 Money 충전
+    @GetMapping("/charge/?userId={userId}&moneyAmount={amount}")
+    public String chargeMoney(@RequestParam String userId, @RequestParam Long amount){
+        fakeWallet.addMoney(userId, amount);
+        return "userId: " + userId +"\nmoney: " + fakeWallet.getMoney(userId);
+    }
+
 }
