@@ -17,4 +17,10 @@ public class fakeUserWallet {
         }
         return wallet.getOrDefault(userId, 0L);
     }
+
+    public Long addMoney(String userId, Long amount){
+        Long money = wallet.get(userId) + amount;
+        wallet.put(userId, money);
+        return wallet.get(userId);
+    }
 }
