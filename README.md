@@ -20,11 +20,11 @@ E-commerce Server 구축 Project
 ## API 명세
 #### 📗 Money 충전
 @Patch<br/>
-/user/{userId}/money/charge
+/money/charge/user/{userId}
 <br /><br />
 #### 📗 Money 조회
 @Get<br/>
-/user/{userId}/money
+/money/user/{userId}
 <br /><br />
 #### 📗 상품 조회(기본 상세 조회)
 @Get<br/>
@@ -32,7 +32,7 @@ E-commerce Server 구축 Project
 <br /><br />
 #### 📗 상품 주문
 @Patch<br/>
-/order
+/order/
 <br /><br />
 #### 📗 주문 결제
 @Patch<br/>
