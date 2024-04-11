@@ -10,6 +10,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 
@@ -26,4 +27,12 @@ public class WalletControllerTest {
         mvc.perform(get(BASE_URL + "/balance?userId=" + uId))
                 .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(Matchers.containsString("Not Found User"))));
     }
+
+//    @Test
+//    public void 머니_충전() {
+//        String uId = "1";
+//
+//        mvc.perform(patch(BASE_URL + "/balance/charge"))
+//                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(Matchers.containsString("Not Found User"))));
+//    }
 }
