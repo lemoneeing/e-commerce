@@ -14,7 +14,7 @@ public class WalletCoreCreatorRepository implements WalletCreatorRepository {
 
     private final WalletJpaRepository walletJpaRepo;
     @Override
-    public Wallet save(Wallet wallet) {
+    public Wallet create(Wallet wallet) {
         return this.walletJpaRepo.save(wallet);
     }
 

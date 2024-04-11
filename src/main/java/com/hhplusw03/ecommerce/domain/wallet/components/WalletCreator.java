@@ -13,6 +13,6 @@ public class WalletCreator {
 
     public void createWalletByUserId(Long userId){
         Wallet wallet = new Wallet(userId);
-        walletRepo.save(wallet);
+        walletRepo.create(wallet);
     }
 }
