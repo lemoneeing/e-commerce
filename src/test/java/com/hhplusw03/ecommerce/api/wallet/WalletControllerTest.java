@@ -21,9 +21,9 @@ public class WalletControllerTest {
     private final String BASE_URL = "/wallet";
     @Test
     public void 존재하지_않는_사용자의_잔액_조회_실패() throws Exception {
-        String uId = "1";
+        String uId = "9999";
 
-        mvc.perform(get(BASE_URL + "/balance?user=" + uId))
+        mvc.perform(get(BASE_URL + "/balance?userId=" + uId))
                 .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(Matchers.containsString("Not Found User"))));
     }
 }
