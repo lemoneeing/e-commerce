@@ -29,4 +29,14 @@ public class WalletReader {
             return false;
         }
     }
+
+    public Wallet readWalletByUserId(Long userId){
+        try {
+            Wallet wallet = walletRepo.findByUserId(userId);
+            return wallet;
+        }
+        catch (RuntimeException re){
+            return null;
+        }
+    }
 }
