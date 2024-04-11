@@ -1,11 +1,5 @@
 package com.hhplusw03.ecommerce.api.wallet.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
+public interface ResponseDto{
 
-@Getter
-@Setter
-public class ResponseDto {
-    Integer status;
-    String message;
 }
