@@ -3,7 +3,6 @@ package com.hhplusw03.ecommerce.domain.wallet.components;
 import com.hhplusw03.ecommerce.domain.wallet.infrastructure.WalletCoreReaderRepository;
 import com.hhplusw03.ecommerce.domain.wallet.models.Wallet;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +17,16 @@ public class WalletReader {
             return wallet.getBalance();
         } catch (RuntimeException re){
             return -1L;
+        }
+    }
+
+    public Boolean checkWalletExistByUserId(Long userId){
+        try {
+            Wallet wallet = walletRepo.findByUserId(userId);
+            return true;
+        }
+        catch (RuntimeException re){
+            return false;
         }
     }
 }
