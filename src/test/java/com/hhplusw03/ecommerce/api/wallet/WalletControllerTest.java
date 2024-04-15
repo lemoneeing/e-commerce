@@ -1,9 +1,9 @@
 package com.hhplusw03.ecommerce.api.wallet;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeData;
-import com.hhplusw03.ecommerce.api.wallet.dto.request.NewWalletReqDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
 
 import org.junit.jupiter.api.Test;
@@ -72,9 +72,9 @@ public class WalletControllerTest{
         String userId = "1";
 
         given(createUc.execute(userId))
-                .willReturn(new ResponseEntity<>(new WalletResponseDto(Long.parseLong(userId), 0L), HttpStatus.OK));
+                .willReturn(new ResponseEntity<>(new WalletResDto(Long.parseLong(userId), 0L), HttpStatus.OK));
 
-        String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
+        String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
 
         mvc.perform(post(BASE_URL + "/new")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -99,7 +99,7 @@ public class WalletControllerTest{
         given(createUc.execute(userId))
                 .willReturn(new ResponseEntity<>(new AlreadyCreatedWalletResDto(), HttpStatus.BAD_REQUEST));
 
-        String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
+        String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
 
         mvc.perform(post(BASE_URL + "/new")
                         .contentType(MediaType.APPLICATION_JSON)

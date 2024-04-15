@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class NewWalletReqDto {
+public class WalletReqDto {
     private String userId;
 }
