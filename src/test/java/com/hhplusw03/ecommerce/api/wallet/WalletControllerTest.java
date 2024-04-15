@@ -51,8 +51,6 @@ public class WalletControllerTest{
     @MockBean
     NewWalletUseCase createUc;
 
-
-
     private final String BASE_URL = "/wallet";
 
     @Autowired
@@ -71,7 +69,7 @@ public class WalletControllerTest{
         String userId = "1";
 
         given(createUc.execute(userId))
-                .willReturn(new WalletResponseDto(Long.parseLong(userId), 0L));
+                .willReturn(new ResponseEntity<>(new WalletResponseDto(Long.parseLong(userId), 0L), HttpStatus.OK));
 
         String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
 
@@ -84,7 +82,8 @@ public class WalletControllerTest{
                 .andExpect(jsonPath("$.balance").exists())
                 .andExpect(jsonPath("$.balance").value("0"));
 
-        verify(createUc).execute(userId);
+        // 지정한 instance(createUc) 가 지정한 함수 (execute) 을 실제로 몇 회 (1) 호출했는지 확인.
+        verify(createUc, times(1)).execute(userId);
     }
 
 
