@@ -1,10 +1,9 @@
 package com.hhplusw03.ecommerce.api.wallet;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeData;
+import com.hhplusw03.ecommerce.api.wallet.dto.request.NewWalletReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
-import com.hhplusw03.ecommerce.api.wallet.usecase.ChargeUseCase;
-import com.hhplusw03.ecommerce.api.wallet.usecase.CreateWalletUseCase;
-import com.hhplusw03.ecommerce.api.wallet.usecase.DisplayWalletUseCase;
+import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
+
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,12 +14,12 @@ import java.util.Map;
 @AllArgsConstructor
 public class WalletController {
 
-    private final DisplayWalletUseCase displayWalletUc;
-    private final CreateWalletUseCase createWalletUc;
-    private final ChargeUseCase chargeUc;
+    private final NewWalletUseCase createWalletUc;
+//    private final DisplayWalletUseCase displayWalletUc;
+//    private final ChargeUseCase chargeUc;
 
     @PostMapping("/new")
-    public ResponseDto createWallet(@RequestBody Map<String, String> requestBodyMap){
+    public ResponseDto newWallet(@RequestBody NewWalletReqDto reqDto){
         // 지갑 생성
         // Request body 에 "ueseId" 라는 key 가 없을 때 response 를 400 으로 주려면 어떻게...?
         Long userId = Long.parseLong(requestBodyMap.get("userId"));
