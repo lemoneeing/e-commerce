@@ -2,7 +2,7 @@ package com.hhplusw03.ecommerce.api.wallet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeData;
-import com.hhplusw03.ecommerce.api.wallet.dto.request.NewReqDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.request.NewWalletReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
 import org.hamcrest.Matchers;
@@ -73,7 +73,7 @@ public class WalletControllerTest{
         given(createUc.execute(userId))
                 .willReturn(new WalletResponseDto(Long.parseLong(userId), 0L));
 
-        String newReqContent = objMapper.writeValueAsString(new NewReqDto(userId));
+        String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
 
         mvc.perform(post(BASE_URL + "/new")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -86,11 +86,28 @@ public class WalletControllerTest{
 
         verify(createUc).execute(userId);
     }
-    @BeforeAll
-    public static void beforeAll(){
-        Long firstUserID = 1L;
-        Wallet firstWallet = new Wallet(firstUserID);
-        walletModifierRepoStub.repo.put(firstUserID, firstWallet);
+
+
+    @Test
+    public void 이미_지갑이_생성된_사용자의_생성_요청은_실패() throws Exception {
+
+        String userId = "1";
+
+        given(createUc.execute(userId))
+                .willReturn(new WalletResponseDto(Long.parseLong(userId), 0L));
+
+        String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
+
+        mvc.perform(post(BASE_URL + "/new")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newReqContent))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId").exists())
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.balance").exists())
+                .andExpect(jsonPath("$.balance").value("0"));
+
+        verify(createUc).execute(userId);
     }
 
     @Test
