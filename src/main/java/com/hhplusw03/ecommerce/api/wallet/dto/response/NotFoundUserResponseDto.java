@@ -6,5 +6,5 @@ import lombok.Setter;
 @Getter
 @Setter
 public class NotFoundUserResponseDto implements ResponseDto {
-    private final String message = "Not Found User Response Dto";
+    private final String message = "Not Found User.";
 }
