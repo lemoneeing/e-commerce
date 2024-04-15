@@ -2,8 +2,9 @@ package com.hhplusw03.ecommerce.api.wallet;
 
 import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.NotFoundUserResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
+import com.hhplusw03.ecommerce.api.wallet.usecase.BalanceUseCase;
 import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
 
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,8 @@ public class WalletControllerTest{
 
     @MockBean
     NewWalletUseCase createUc;
+    @MockBean
+    BalanceUseCase balanceUc;
 
     private final String BASE_URL = "/wallet";
 
@@ -111,14 +114,48 @@ public class WalletControllerTest{
         verify(createUc, times(2)).execute(userId);
     }
 
-//    @Test
-//    public void 존재하지_않는_사용자의_잔액_조회_실패() throws Exception {
-//        String uId = "9999";
-//
-//        mvc.perform(get(BASE_URL + "/balance?userId=" + uId))
-//                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(containsString("Not Found User"))));
-//    }
-//
+    @Test
+    public void 잔액_조회() throws Exception{
+
+        String userId = "1";
+//        createUc.execute(userId); // Controller Unit Test 이므로 createUsecase 를 실행할 필요가 없는 게 맞나...? 해당 절차가 없으면 실제 시나리오와 달라지게 됨. 하지만 없어도 Test 는 동작함.
+
+        given(balanceUc.execute(userId))
+                .willReturn(new ResponseEntity<>(new WalletResDto(1L, 0L), HttpStatus.OK));
+
+        String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
+
+        mvc.perform(get(BASE_URL + "/balance")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newReqContent))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.userId").exists())
+                .andExpect(jsonPath("$.userId").value(userId))
+                .andExpect(jsonPath("$.balance").exists())
+                .andExpect(jsonPath("$.balance").value("0"));
+
+        verify(balanceUc, times(1)).execute(userId);
+    }
+
+    @Test
+    public void 존재하지_않는_사용자의_잔액_조회_실패() throws Exception {
+        String userId = "9999";
+
+        given(balanceUc.execute(userId))
+                .willReturn(new ResponseEntity<>(new NotFoundUserResponseDto(), HttpStatus.BAD_REQUEST));
+
+        String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
+
+        mvc.perform(get(BASE_URL + "/balance")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newReqContent))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("Not Found User."));
+
+        verify(balanceUc, times(1)).execute(userId);
+    }
+
 //    @Test
 //    public void 머니_충전() throws Exception {
 //        String userId = "1";
