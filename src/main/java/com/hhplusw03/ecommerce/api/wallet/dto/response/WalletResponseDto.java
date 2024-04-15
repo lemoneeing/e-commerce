@@ -6,11 +6,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WalletResponseDto implements ResponseDto{
-    private Long userId;
-    private Long balance;
+    /*
+    * Wallet 생성 응답에 Mapping
+    */
+
+    private String userId;
+    private String balance;
 
     public WalletResponseDto(Long userId, Long balance){
-        this.userId = userId;
-        this.balance = balance;
+        //DTO 의 멤버 변수 형변환은 어디서 이루어지는 것이 좋을까?
+
+        this.userId = String.valueOf(userId);
+        this.balance = String.valueOf(balance);
     }
 }
