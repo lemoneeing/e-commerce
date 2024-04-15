@@ -3,10 +3,11 @@ package com.hhplusw03.ecommerce.api.wallet.usecase;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.NotFoundUserResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletCreator;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletReader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class NewWalletUseCase {
         
         // 이미 동일한 userId로 생성된 Wallet 이 존재함. -> AlreadyCreatedWalletResponseDto 반환
         if (walletReader.checkWalletExistByUserId(ownerId)){
-            return ResponseEntity.status(400).body( new AlreadyCreatedWalletResDto());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new AlreadyCreatedWalletResDto());
         }
         else {
 
@@ -32,9 +33,9 @@ public class NewWalletUseCase {
 
             // Wallet 이 잘 생성되었는지 확인
             if (walletReader.checkWalletExistByUserId(ownerId)) {
-                return ResponseEntity.status(200).body(new WalletResponseDto(ownerId, walletReader.readBalanceByUserId(ownerId)));
+                return ResponseEntity.status(HttpStatus.OK).body(new WalletResDto(ownerId, walletReader.readBalanceByUserId(ownerId)));
             } else {
-                return ResponseEntity.status(404).body(new NotFoundUserResponseDto());
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new NotFoundUserResponseDto());
             }
         }
     }
