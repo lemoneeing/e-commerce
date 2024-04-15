@@ -7,8 +7,6 @@ import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/wallet")
 @AllArgsConstructor
@@ -26,11 +24,11 @@ public class WalletController {
         return createWalletUc.execute(userId);
     }
 
-    @GetMapping("/balance")
-    public ResponseDto showBalance(@RequestParam Long userId){
-        // 사용자 Id 로 잔액 조회
-        return displayWalletUc.execute(userId);
-    }
+//    @GetMapping("/balance")
+//    public ResponseDto showBalance(@RequestParam Long userId){
+//        // 사용자 Id 로 잔액 조회
+//        return displayWalletUc.execute(userId);
+//    }
 
     // 사용자 Id 로 Money 충전
 //    @PatchMapping("/charge")
@@ -41,11 +39,11 @@ public class WalletController {
 //        Long amount = Long.parseLong(requestBodyMap.get("amount"));
 //        return chargeUc.execute(userId, amount);
 //    }
-    @PatchMapping("/charge/")
-    public ResponseDto chargeWallet(@RequestBody ChargeData chargeData) {
-        //지갑 충전
-        Long userId = Long.parseLong(chargeData.getUserId());
-        Long amount = Long.parseLong(chargeData.getAmount());
-        return chargeUc.execute(userId, amount);
-    }
+//    @PatchMapping("/charge")
+//    public ResponseDto chargeWallet(@RequestBody ChargeData chargeData) {
+//        //지갑 충전
+//        Long userId = Long.parseLong(chargeData.getUserId());
+//        Long amount = Long.parseLong(chargeData.getAmount());
+//        return chargeUc.execute(userId, amount);
+//    }
 }
