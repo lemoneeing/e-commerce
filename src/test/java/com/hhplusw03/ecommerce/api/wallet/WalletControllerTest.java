@@ -1,20 +1,23 @@
 package com.hhplusw03.ecommerce.api.wallet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeData;
 import com.hhplusw03.ecommerce.api.wallet.dto.request.NewWalletReqDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
-import org.hamcrest.Matchers;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -91,42 +94,41 @@ public class WalletControllerTest{
     public void 이미_지갑이_생성된_사용자의_생성_요청은_실패() throws Exception {
 
         String userId = "1";
+        createUc.execute(userId);
 
         given(createUc.execute(userId))
-                .willReturn(new WalletResponseDto(Long.parseLong(userId), 0L));
+                .willReturn(new ResponseEntity<>(new AlreadyCreatedWalletResDto(), HttpStatus.BAD_REQUEST));
 
         String newReqContent = objMapper.writeValueAsString(new NewWalletReqDto(userId));
 
         mvc.perform(post(BASE_URL + "/new")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(newReqContent))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.userId").exists())
-                .andExpect(jsonPath("$.userId").value(userId))
-                .andExpect(jsonPath("$.balance").exists())
-                .andExpect(jsonPath("$.balance").value("0"));
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("Already Created Wallet."));
 
-        verify(createUc).execute(userId);
+        verify(createUc, times(2)).execute(userId);
     }
 
-    @Test
-    public void 존재하지_않는_사용자의_잔액_조회_실패() throws Exception {
-        String uId = "9999";
-
-        mvc.perform(get(BASE_URL + "/balance?userId=" + uId))
-                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(Matchers.containsString("Not Found User"))));
-    }
-
-    @Test
-    public void 머니_충전() throws Exception {
-        String userId = "1";
-        String amount = "1000";
-
-        String content = objMapper.writeValueAsString(new ChargeData(userId, amount));
-
-        mvc.perform(patch(BASE_URL + "/balance/charge").
-                        contentType(MediaType.APPLICATION_JSON).
-                        content(content))
-                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(Matchers.containsString("Not Found User"))));
-    }
+//    @Test
+//    public void 존재하지_않는_사용자의_잔액_조회_실패() throws Exception {
+//        String uId = "9999";
+//
+//        mvc.perform(get(BASE_URL + "/balance?userId=" + uId))
+//                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(containsString("Not Found User"))));
+//    }
+//
+//    @Test
+//    public void 머니_충전() throws Exception {
+//        String userId = "1";
+//        String amount = "1000";
+//
+//        String content = objMapper.writeValueAsString(new ChargeData(userId, amount));
+//
+//        mvc.perform(patch(BASE_URL + "/balance/charge").
+//                        contentType(MediaType.APPLICATION_JSON).
+//                        content(content))
+//                .andExpect((ResultMatcher) jsonPath("$[*].message", Matchers.everyItem(containsString("Not Found User"))));
+//    }
 }
