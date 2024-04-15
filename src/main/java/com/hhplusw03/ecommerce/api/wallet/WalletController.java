@@ -19,9 +19,9 @@ public class WalletController {
     @PostMapping("/new")
     public ResponseDto newWallet(@RequestBody NewWalletReqDto reqDto){
         // 지갑 생성
+
         // Request body 에 "ueseId" 라는 key 가 없을 때 response 를 400 으로 주려면 어떻게...?
-        Long userId = Long.parseLong(requestBodyMap.get("userId"));
-        return createWalletUc.execute(userId);
+        return createWalletUc.execute(reqDto.getUserId());
     }
 
 //    @GetMapping("/balance")
