@@ -1,8 +1,9 @@
 package com.hhplusw03.ecommerce.api.wallet;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.request.NewWalletReqDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.NewWalletUseCase;
+import com.hhplusw03.ecommerce.api.wallet.usecase.BalanceUseCase;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,22 +15,21 @@ import org.springframework.web.bind.annotation.*;
 public class WalletController {
 
     private final NewWalletUseCase createWalletUc;
-//    private final DisplayWalletUseCase displayWalletUc;
+    private final BalanceUseCase balanceUc;
 //    private final ChargeUseCase chargeUc;
 
     @PostMapping("/new")
-    public ResponseEntity<ResponseDto> newWallet(@RequestBody NewWalletReqDto reqDto){
+    public ResponseEntity<ResponseDto> newWallet(@RequestBody WalletReqDto reqDto){
         // 지갑 생성
 
-        // Request body 에 "ueseId" 라는 key 가 없을 때 response 를 400 으로 주려면 어떻게...?
         return createWalletUc.execute(reqDto.getUserId());
     }
 
-//    @GetMapping("/balance")
-//    public ResponseDto showBalance(@RequestParam Long userId){
-//        // 사용자 Id 로 잔액 조회
-//        return displayWalletUc.execute(userId);
-//    }
+    @GetMapping("/balance")
+    public ResponseEntity<ResponseDto>  showBalance(@RequestBody WalletReqDto reqDto){
+        // 사용자 Id 로 잔액 조회
+        return balanceUc.execute(reqDto.getUserId());
+    }
 
     // 사용자 Id 로 Money 충전
 //    @PatchMapping("/charge")
