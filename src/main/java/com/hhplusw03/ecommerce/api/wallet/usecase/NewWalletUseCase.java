@@ -1,7 +1,6 @@
 package com.hhplusw03.ecommerce.api.wallet.usecase;
 
 import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.NotFoundUserResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletCreator;
@@ -17,26 +16,18 @@ public class NewWalletUseCase {
     private final WalletCreator walletCreator;
     private final WalletReader walletReader;
 
-    // Wallet 의 상태를 보여줌.
+    // Wallet 을 생성하고, 생성된 Wallet 정보를 반환함.
     public ResponseEntity<ResponseDto> execute(String userId){
 
         Long ownerId = Long.parseLong(userId);
-        
-        // 이미 동일한 userId로 생성된 Wallet 이 존재함. -> AlreadyCreatedWalletResponseDto 반환
+
         if (walletReader.checkWalletExistByUserId(ownerId)){
+            // 요청 받은 userId 를 갖는 Wallet 이 이미 존재하므로 400, AlreadyCreatedWalletResponseDto 반환
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new AlreadyCreatedWalletResDto());
         }
         else {
-
-            // Wallet 생성 시도
-            this.walletCreator.createWallet(ownerId);
-
-            // Wallet 이 잘 생성되었는지 확인
-            if (walletReader.checkWalletExistByUserId(ownerId)) {
-                return ResponseEntity.status(HttpStatus.OK).body(new WalletResDto(ownerId, walletReader.readBalanceByUserId(ownerId)));
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new NotFoundUserResponseDto());
-            }
+            // 요청 받은 userId 를 갖는 Wallet 이 없으므로 새로 생성
+            return ResponseEntity.status(HttpStatus.OK).body(new WalletResDto(ownerId, this.walletCreator.createWallet(ownerId).getBalance()));
         }
     }
 }
