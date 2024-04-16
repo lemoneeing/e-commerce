@@ -5,11 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 public class Wallet {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -22,5 +20,12 @@ public class Wallet {
     public Wallet(Long userId){
         this.userId = userId;
         this.balance = 0L;
+    }
+
+    public WalletDto toDto(){
+        return WalletDto.builder()
+                .userId(this.userId)
+                .balance(this.balance)
+                .build();
     }
 }
