@@ -43,4 +43,19 @@ public class NewWalletUseCaseTest {
         verify(reader, times(1)).checkWalletExistByUserId(userId);
         verify(creator, times(1)).createWallet(userId);
     }
+
+    @Test
+    public void 이미_존재하는_지갑은_생성_실패(){
+        Long userId = 1L;
+        when(reader.checkWalletExistByUserId(userId)).thenReturn(true);
+
+        ResponseEntity<ResponseDto> alreadyCreatedDto = newWalletUc.execute(String.valueOf(userId));
+
+        Assertions.assertThat(alreadyCreatedDto).isInstanceOf(ResponseEntity.class);
+        Assertions.assertThat(alreadyCreatedDto.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+        Assertions.assertThat(alreadyCreatedDto.getBody()).hasFieldOrPropertyWithValue("message", "Already Created Wallet.");
+
+        verify(reader, times(1)).checkWalletExistByUserId(userId);
+        verify(creator, times(0)).createWallet(userId);
+    }
 }
