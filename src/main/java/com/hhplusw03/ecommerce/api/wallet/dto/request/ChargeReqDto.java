@@ -1,12 +1,13 @@
 package com.hhplusw03.ecommerce.api.wallet.dto.request;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
-public class ChargeData {
+public class ChargeReqDto {
     private String userId;
     private String amount;
 }
