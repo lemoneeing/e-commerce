@@ -30,26 +30,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(WalletController.class)
 public class WalletControllerTest{
-
-    // 이게 stub 이 맞는지는 모르겠으나 가상의 WalletModifierRepository 를 구현함.
-//    class WalletModifierRepositoryStub implements WalletModifierRepository{
-//        public final Map<Long, Wallet> repo = new HashMap<>();
-//
-//        @Override
-//        public Wallet modify(Wallet wallet, Long money) {
-//            Long userId = wallet.getUserId();
-//
-//            wallet.setBalance(money);
-//
-//            repo.put(userId, wallet);
-//
-//            return repo.get(userId);
-//        }
-//    }
-//
-//    @Autowired
-//    static WalletModifierRepositoryStub walletModifierRepoStub;
-
     @Autowired
     private MockMvc mvc;
 
@@ -64,13 +44,6 @@ public class WalletControllerTest{
 
     @Autowired
     ObjectMapper objMapper;
-
-//    @BeforeAll
-//    public void beforeEach(){
-//        Long firstUserID = 1L;
-//        Wallet firstWallet = new Wallet(firstUserID);
-//        walletModifierRepoStub.repo.put(firstUserID, firstWallet);
-//    }
 
     @Test
     public void 지갑_생성() throws Exception {
