@@ -1,9 +1,6 @@
 package com.hhplusw03.ecommerce.domain.wallet.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 @Entity
@@ -13,8 +10,10 @@ public class Wallet {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
 
+    @Column(unique = true)
     Long userId;
 
+    @Column
     Long balance;
 
     public Wallet(Long userId){
