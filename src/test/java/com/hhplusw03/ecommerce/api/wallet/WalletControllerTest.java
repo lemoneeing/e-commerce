@@ -2,8 +2,7 @@ package com.hhplusw03.ecommerce.api.wallet;
 
 import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.NotFoundUserResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.ErrorResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.BalanceUseCase;
 import com.hhplusw03.ecommerce.api.wallet.usecase.ChargeUseCase;
@@ -104,7 +103,7 @@ public class WalletControllerTest{
         createUc.execute(userId);
 
         given(createUc.execute(userId))
-                .willReturn(new ResponseEntity<>(new AlreadyCreatedWalletResDto(), HttpStatus.BAD_REQUEST));
+                .willReturn(new ResponseEntity<>(new ErrorResDto("Already Created Wallet."), HttpStatus.BAD_REQUEST));
 
         String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
 
@@ -145,7 +144,7 @@ public class WalletControllerTest{
         String userId = "9999";
 
         given(balanceUc.execute(userId))
-                .willReturn(new ResponseEntity<>(new NotFoundUserResponseDto(), HttpStatus.BAD_REQUEST));
+                .willReturn(new ResponseEntity<>(new ErrorResDto("Not Found User."), HttpStatus.BAD_REQUEST));
 
         String newReqContent = objMapper.writeValueAsString(new WalletReqDto(userId));
 
@@ -178,6 +177,27 @@ public class WalletControllerTest{
                 .andExpect(jsonPath("$.userId").value(userId))
                 .andExpect(jsonPath("$.balance").exists())
                 .andExpect(jsonPath("$.balance").value(amount));
+
+        verify(chargeUc, times(1)).execute(userId, amount);
+    }
+
+    @Test
+    public void 최소_금액_미만_충전_실패() throws Exception {
+
+        String userId = "1";
+        String amount = "9999";
+
+        given(chargeUc.execute(userId, amount))
+                .willReturn(new ResponseEntity<>(new ErrorResDto("Too small amount to charge."), HttpStatus.BAD_REQUEST));
+
+        String newReqContent = objMapper.writeValueAsString(new ChargeReqDto(userId, amount));
+
+        mvc.perform(patch(BASE_URL + "/charge")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(newReqContent))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.message").value("Too small amount to charge."));
 
         verify(chargeUc, times(1)).execute(userId, amount);
     }
