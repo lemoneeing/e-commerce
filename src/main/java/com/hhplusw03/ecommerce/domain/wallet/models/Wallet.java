@@ -21,6 +21,11 @@ public class Wallet {
         this.balance = 0L;
     }
 
+    public Wallet(Long userId, Long initAmount){
+        this.userId = userId;
+        this.balance = initAmount;
+    }
+
     public WalletDto toDto(){
         return new WalletDto(this.userId, this.balance);
     }
