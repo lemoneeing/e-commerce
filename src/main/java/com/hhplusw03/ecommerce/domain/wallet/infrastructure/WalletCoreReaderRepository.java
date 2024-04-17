@@ -25,6 +25,11 @@ public class WalletCoreReaderRepository implements WalletReaderRepository {
     }
 
     @Override
+    public Boolean existsByUserId(Long userId) {
+        return this.walletJpaRepo.existsByUserId(userId);
+    }
+
+    @Override
     public Long findBalanceByUserId(Long userId) {
         return null;
     }
