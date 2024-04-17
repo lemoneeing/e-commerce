@@ -2,6 +2,7 @@ package com.hhplusw03.ecommerce.domain.wallet.components;
 
 import com.hhplusw03.ecommerce.domain.wallet.infrastructure.WalletCoreReaderRepository;
 import com.hhplusw03.ecommerce.domain.wallet.models.Wallet;
+import com.hhplusw03.ecommerce.domain.wallet.models.WalletDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,8 @@ public class WalletReader {
 
     public Long readBalanceByUserId(Long userId){
         try {
-            Wallet wallet = walletRepo.findByUserId(userId);
-            return wallet.getBalance();
+            WalletDto walletDto = walletRepo.findByUserId(userId).toDto();
+            return walletDto.getBalance();
         } catch (RuntimeException re){
             return -1L;
         }
