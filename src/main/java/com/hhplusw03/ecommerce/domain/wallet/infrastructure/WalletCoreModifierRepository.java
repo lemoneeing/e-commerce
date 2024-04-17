@@ -1,6 +1,7 @@
 package com.hhplusw03.ecommerce.domain.wallet.infrastructure;
 
 import com.hhplusw03.ecommerce.domain.wallet.models.Wallet;
+import com.hhplusw03.ecommerce.domain.wallet.models.WalletDto;
 import com.hhplusw03.ecommerce.domain.wallet.repository.WalletModifierRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -12,9 +13,9 @@ public class WalletCoreModifierRepository implements WalletModifierRepository {
     private final WalletJpaRepository walletJpaRepo;
 
     @Override
-    public Wallet modify(Wallet wallet, Long totalMoney) {
-        wallet.setBalance(totalMoney);
+    public WalletDto modify(WalletDto dto) {
+        Wallet wallet = dto.toEntity();
         walletJpaRepo.save(wallet);
-        return wallet;
+        return walletJpaRepo.save(wallet).toDto();
     }
 }

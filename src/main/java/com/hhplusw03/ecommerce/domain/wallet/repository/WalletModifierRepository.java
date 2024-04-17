@@ -1,7 +1,7 @@
 package com.hhplusw03.ecommerce.domain.wallet.repository;
 
-import com.hhplusw03.ecommerce.domain.wallet.models.Wallet;
+import com.hhplusw03.ecommerce.domain.wallet.models.WalletDto;
 
 public interface WalletModifierRepository {
-    public Wallet modify(Wallet wallet, Long money);
+    public WalletDto modify(WalletDto wallet);
 }
