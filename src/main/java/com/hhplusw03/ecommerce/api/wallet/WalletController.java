@@ -35,8 +35,8 @@ public class WalletController {
 
     // 사용자 Id 를 갖는 Wallet 에 Money 충전
     @PatchMapping("/charge")
-    public ResponseEntity<ResponseDto> chargeWallet(@RequestBody ChargeReqDto chargeDto) {
+    public ResponseEntity<ResponseDto> chargeWallet(@RequestBody ChargeReqDto reqDto) {
         //지갑 충전
-        return chargeUc.execute(chargeDto.getUserId(), chargeDto.getAmount());
+        return chargeUc.execute(reqDto.getUserId(), reqDto.getAmount());
     }
 }
