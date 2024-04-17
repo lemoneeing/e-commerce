@@ -25,4 +25,9 @@ public class Wallet {
     public WalletDto toDto(){
         return new WalletDto(this.userId, this.balance);
     }
+
+    public Long setBalance(Long amount){
+        this.balance = amount;
+        return this.balance;
+    }
 }
