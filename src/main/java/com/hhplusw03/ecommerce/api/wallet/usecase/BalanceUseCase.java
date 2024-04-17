@@ -1,6 +1,6 @@
 package com.hhplusw03.ecommerce.api.wallet.usecase;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.response.NotFoundUserResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.ErrorResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletReader;
@@ -24,7 +24,7 @@ public class BalanceUseCase {
             return ResponseEntity.status(HttpStatus.OK).body(new WalletResDto(ownerId, balance));
         }
         else {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new NotFoundUserResponseDto());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResDto("Not Found User."));
         }
     }
 }

@@ -1,6 +1,6 @@
 package com.hhplusw03.ecommerce.api.wallet.usecase;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.response.AlreadyCreatedWalletResDto;
+import com.hhplusw03.ecommerce.api.wallet.dto.response.ErrorResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletCreator;
@@ -23,7 +23,7 @@ public class NewWalletUseCase {
 
         if (walletReader.checkWalletExistByUserId(ownerId)){
             // 요청 받은 userId 를 갖는 Wallet 이 이미 존재하므로 400, AlreadyCreatedWalletResponseDto 반환
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new AlreadyCreatedWalletResDto());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorResDto("Already Created Wallet."));
         }
         else {
             // 요청 받은 userId 를 갖는 Wallet 이 없으므로 새로 생성
