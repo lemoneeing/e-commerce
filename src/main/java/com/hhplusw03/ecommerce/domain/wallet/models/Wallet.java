@@ -23,9 +23,6 @@ public class Wallet {
     }
 
     public WalletDto toDto(){
-        return WalletDto.builder()
-                .userId(this.userId)
-                .balance(this.balance)
-                .build();
+        return new WalletDto(this.userId, this.balance);
     }
 }
