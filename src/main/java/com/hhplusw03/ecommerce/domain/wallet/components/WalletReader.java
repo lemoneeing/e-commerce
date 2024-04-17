@@ -20,14 +20,8 @@ public class WalletReader {
         }
     }
 
-    public Boolean checkWalletExistByUserId(Long userId){
-        try {
-            Wallet wallet = walletRepo.findByUserId(userId);
-            return true;
-        }
-        catch (RuntimeException re){
-            return false;
-        }
+    public Boolean checkWalletExisted(Long userId){
+        return walletRepo.existsByUserId(userId);
     }
 
     public Wallet readWalletByUserId(Long userId){

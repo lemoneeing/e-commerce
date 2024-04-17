@@ -21,9 +21,9 @@ public class NewWalletUseCase {
 
         Long ownerId = Long.parseLong(userId);
 
-        if (walletReader.checkWalletExistByUserId(ownerId)){
+        if (walletReader.checkWalletExisted(ownerId)){
             // 요청 받은 userId 를 갖는 Wallet 이 이미 존재하므로 400, AlreadyCreatedWalletResponseDto 반환
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body( new ErrorResDto("Already Created Wallet."));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResDto("Already Created Wallet."));
         }
         else {
             // 요청 받은 userId 를 갖는 Wallet 이 없으므로 새로 생성

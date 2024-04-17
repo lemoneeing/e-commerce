@@ -31,7 +31,7 @@ public class NewWalletUseCaseTest {
     @Test
     public void 지갑_생성_서비스(){
         Long userId = 1L;
-        when(reader.checkWalletExistByUserId(userId)).thenReturn(false);
+        when(reader.checkWalletExisted(userId)).thenReturn(false);
         when(creator.createWallet(userId)).thenReturn(new Wallet(userId).toDto());
 
         ResponseEntity<ResponseDto> walletResDto = newWalletUc.execute(String.valueOf(userId));
@@ -40,14 +40,14 @@ public class NewWalletUseCaseTest {
         Assertions.assertThat(walletResDto.getStatusCode()).isEqualTo(HttpStatus.OK);
         Assertions.assertThat(walletResDto.getBody()).hasFieldOrPropertyWithValue("balance", "0");
 
-        verify(reader, times(1)).checkWalletExistByUserId(userId);
+        verify(reader, times(1)).checkWalletExisted(userId);
         verify(creator, times(1)).createWallet(userId);
     }
 
     @Test
     public void 이미_존재하는_지갑은_생성_서비스_실패(){
         Long userId = 1L;
-        when(reader.checkWalletExistByUserId(userId)).thenReturn(true);
+        when(reader.checkWalletExisted(userId)).thenReturn(true);
 
         ResponseEntity<ResponseDto> alreadyCreatedDto = newWalletUc.execute(String.valueOf(userId));
 
@@ -55,7 +55,7 @@ public class NewWalletUseCaseTest {
         Assertions.assertThat(alreadyCreatedDto.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
         Assertions.assertThat(alreadyCreatedDto.getBody()).hasFieldOrPropertyWithValue("message", "Already Created Wallet.");
 
-        verify(reader, times(1)).checkWalletExistByUserId(userId);
+        verify(reader, times(1)).checkWalletExisted(userId);
         verify(creator, times(0)).createWallet(userId);
     }
 }
