@@ -14,8 +14,6 @@ public class WalletCoreModifierRepository implements WalletModifierRepository {
 
     @Override
     public WalletDto modify(WalletDto dto) {
-        Wallet wallet = dto.toEntity();
-        walletJpaRepo.save(wallet);
-        return walletJpaRepo.save(wallet).toDto();
+        return walletJpaRepo.save(dto.toEntity()).toDto();
     }
 }
