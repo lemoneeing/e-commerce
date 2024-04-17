@@ -188,7 +188,7 @@ public class WalletControllerTest{
         String amount = "9999";
 
         given(chargeUc.execute(userId, amount))
-                .willReturn(new ResponseEntity<>(new ErrorResDto("Too small amount to charge."), HttpStatus.BAD_REQUEST));
+                .willReturn(new ResponseEntity<>(new ErrorResDto("Too little amount to charge."), HttpStatus.BAD_REQUEST));
 
         String newReqContent = objMapper.writeValueAsString(new ChargeReqDto(userId, amount));
 
@@ -197,7 +197,7 @@ public class WalletControllerTest{
                         .content(newReqContent))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").exists())
-                .andExpect(jsonPath("$.message").value("Too small amount to charge."));
+                .andExpect(jsonPath("$.message").value("Too little amount to charge."));
 
         verify(chargeUc, times(1)).execute(userId, amount);
     }
