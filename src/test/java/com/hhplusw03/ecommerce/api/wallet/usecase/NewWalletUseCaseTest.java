@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
-@Import({NewWalletUseCase.class, WalletCreator.class})
+@Import({NewWalletUseCase.class, WalletCreator.class, WalletReader.class})
 public class NewWalletUseCaseTest {
     @MockBean
     WalletCreator creator;
@@ -45,7 +45,7 @@ public class NewWalletUseCaseTest {
     }
 
     @Test
-    public void 이미_존재하는_지갑은_생성_실패(){
+    public void 이미_존재하는_지갑은_생성_서비스_실패(){
         Long userId = 1L;
         when(reader.checkWalletExistByUserId(userId)).thenReturn(true);
 
