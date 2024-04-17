@@ -10,4 +10,8 @@ public class WalletDto {
     Long userId;
 
     Long balance;
+
+    public Wallet toEntity(){
+        return new Wallet(this.userId, this.balance);
+    }
 }
