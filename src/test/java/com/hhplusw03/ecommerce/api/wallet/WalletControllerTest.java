@@ -2,7 +2,7 @@ package com.hhplusw03.ecommerce.api.wallet;
 
 import com.hhplusw03.ecommerce.api.wallet.dto.request.ChargeReqDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
-import com.hhplusw03.ecommerce.api.wallet.dto.response.ErrorResDto;
+import com.hhplusw03.ecommerce.api.responseDto.ErrorResDto;
 import com.hhplusw03.ecommerce.api.wallet.dto.response.WalletResDto;
 import com.hhplusw03.ecommerce.api.wallet.usecase.BalanceUseCase;
 import com.hhplusw03.ecommerce.api.wallet.usecase.ChargeUseCase;

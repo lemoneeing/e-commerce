@@ -1,6 +1,6 @@
 package com.hhplusw03.ecommerce.api.wallet.usecase;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
+import com.hhplusw03.ecommerce.api.responseDto.ResponseDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletReader;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

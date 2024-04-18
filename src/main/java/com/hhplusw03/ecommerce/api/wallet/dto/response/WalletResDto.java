@@ -1,11 +1,12 @@
 package com.hhplusw03.ecommerce.api.wallet.dto.response;
 
+import com.hhplusw03.ecommerce.api.responseDto.ResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class WalletResDto implements ResponseDto{
+public class WalletResDto implements ResponseDto {
     /*
     * Wallet 반환 응답
     */

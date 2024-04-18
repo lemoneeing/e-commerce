@@ -1,6 +1,6 @@
 package com.hhplusw03.ecommerce.api.wallet.usecase;
 
-import com.hhplusw03.ecommerce.api.wallet.dto.response.ResponseDto;
+import com.hhplusw03.ecommerce.api.responseDto.ResponseDto;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletModifier;
 import com.hhplusw03.ecommerce.domain.wallet.components.WalletReader;
 import com.hhplusw03.ecommerce.domain.wallet.models.Wallet;
