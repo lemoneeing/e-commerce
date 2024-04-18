@@ -6,9 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class WalletDto {
-
     Long userId;
-
     Long balance;
 
     public Wallet toEntity(){
