@@ -8,3 +8,5 @@ E-commerce Server 구축 Project
 - ### [ERD 설계](https://github.com/lemoneeing/e-commerce/wiki/ERD)
 
 - ### [API Swagger](https://github.com/lemoneeing/e-commerce/wiki/API-Swagger)
+
+- ### Branch 전략: main, develop, feature (GitHub flow)
