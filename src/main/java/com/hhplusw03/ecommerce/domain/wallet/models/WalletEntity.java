@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Wallet {
+@Table(name="Wallet")
+public class WalletEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     Long id;
@@ -16,18 +17,15 @@ public class Wallet {
     @Column
     Long balance;
 
-    public Wallet(Long userId){
+    public WalletEntity(Long userId){
         this.userId = userId;
         this.balance = 0L;
     }
-
-    public Wallet(Long userId, Long initAmount){
+    
+    // Test 때, 잔액이 0 이상인 Wallet 을 만들기 위해 필요
+    public WalletEntity(Long userId, Long initAmount){
         this.userId = userId;
         this.balance = initAmount;
-    }
-
-    public WalletDto toDto(){
-        return new WalletDto(this.userId, this.balance);
     }
 
     public Long setBalance(Long amount){
