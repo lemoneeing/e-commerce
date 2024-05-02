@@ -2,10 +2,12 @@ package com.hhplusw03.ecommerce.domain.wallet.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name="Wallet")
+@NoArgsConstructor
 public class WalletEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
