@@ -3,6 +3,7 @@ package com.hhplusw03.ecommerce.domain.wallet.application.impl;
 import com.hhplusw03.ecommerce.domain.wallet.application.WalletResult;
 import com.hhplusw03.ecommerce.domain.wallet.application.WalletDto;
 import com.hhplusw03.ecommerce.domain.wallet.application.WalletService;
+import com.hhplusw03.ecommerce.domain.wallet.models.WalletEntity;
 import com.hhplusw03.ecommerce.domain.wallet.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,13 @@ public class WalletServiceImpl implements WalletService {
 
         WalletResult walletRes = new WalletDto(walletRepository.readWallet(ownerId));
         return walletRes;
+    }
+
+    public WalletResult chargeWallet(String userId, String amount){
+        Long ownerId = Long.parseLong(userId);
+        Long amount2Charge = Long.parseLong(amount);
+
+        WalletEntity wallet = walletRepository.readWallet(ownerId);
+        return new WalletDto(this.walletRepository.modifyBalance(wallet, wallet.getBalance() + amount2Charge));
     }
 }
