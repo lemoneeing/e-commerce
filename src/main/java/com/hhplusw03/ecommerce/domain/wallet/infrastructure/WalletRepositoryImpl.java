@@ -25,4 +25,10 @@ public class WalletRepositoryImpl implements WalletRepository {
         return this.walletJpaRepo.findByUserId(userId)
                 .orElseThrow(() -> new EntityNotFoundException("다음 사용자ID 는 존재하지 않습니다. - " + userId));
     }
+
+    @Override
+    public WalletEntity modifyBalance(WalletEntity wallet, Long newBalance){
+        wallet.setBalance(newBalance);
+        return this.walletJpaRepo.save(wallet);
+    }
 }
