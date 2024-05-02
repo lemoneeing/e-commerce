@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(SpringExtension.class)
 @Import({ShowWalletUseCase.class, WalletService.class})
@@ -36,5 +36,7 @@ class ShowWalletUseCaseTest {
         Assertions.assertThat(readWallet).isInstanceOf(WalletResDto.class);
         Assertions.assertThat(((WalletResDto)readWallet).getUserId()).isEqualTo(userId);
         Assertions.assertThat(((WalletResDto)readWallet).getBalance()).isEqualTo("0");
+
+        verify(svc, times(1)).readWallet(userId);
     }
 }
