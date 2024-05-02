@@ -13,17 +13,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-@Import({ReadWalletUseCase.class, WalletService.class})
-class ReadWalletUseCaseTest {
+@Import({ShowWalletUseCase.class, WalletService.class})
+class ShowWalletUseCaseTest {
     @MockBean
     WalletService svc;
 
     @Autowired
-    ReadWalletUseCase uc;
+    ShowWalletUseCase uc;
 
     @Test
     public void 지감_조회_유스케이스(){

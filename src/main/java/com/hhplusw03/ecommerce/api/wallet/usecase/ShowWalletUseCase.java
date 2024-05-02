@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ReadWalletUseCase {
+public class ShowWalletUseCase {
     private final WalletService walletSvc;
-
     @Autowired
-    public ReadWalletUseCase(WalletService svc){
+    public ShowWalletUseCase(WalletService svc){
         this.walletSvc = svc;
     }
 
