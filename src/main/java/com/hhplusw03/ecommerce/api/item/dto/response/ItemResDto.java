@@ -15,7 +15,7 @@ public class ItemResDto implements ResponseDto {
     Long price;
     String seller;
     Long stock;
-    String status;
+//    String status;
 
     public ItemResDto(ItemDto dto){
         // ItemResDto 는 Presentation layer 니까 ItemDto 를 참조해도 괜찮,,,?
