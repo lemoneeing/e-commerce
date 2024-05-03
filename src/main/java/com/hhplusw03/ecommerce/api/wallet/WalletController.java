@@ -2,6 +2,7 @@ package com.hhplusw03.ecommerce.api.wallet;
 
 import com.hhplusw03.ecommerce.api.wallet.dto.request.WalletReqDto;
 import com.hhplusw03.ecommerce.api.responseDto.ResponseDto;
+import com.hhplusw03.ecommerce.api.wallet.usecase.ChargeWalletUseCase;
 import com.hhplusw03.ecommerce.api.wallet.usecase.CreateWalletUsecase;
 
 import com.hhplusw03.ecommerce.api.wallet.usecase.ShowWalletUseCase;
@@ -16,10 +17,12 @@ public class WalletController {
 
     private final CreateWalletUsecase createUc;
     private final ShowWalletUseCase readUc;
+    private final ChargeWalletUseCase chargeUc;
     @Autowired
-    public WalletController(CreateWalletUsecase createUc, ShowWalletUseCase readUc){
+    public WalletController(CreateWalletUsecase createUc, ShowWalletUseCase readUc, ChargeWalletUseCase chargeUc){
         this.createUc = createUc;
         this.readUc = readUc;
+        this.chargeUc = chargeUc;
     }
 
     @PostMapping("/new")
@@ -33,10 +36,10 @@ public class WalletController {
         return ResponseEntity.status(HttpStatus.OK).body(readUc.execute(reqDto.getUserId()));
     }
 
-//    // 사용자 Id 를 갖는 Wallet 에 Money 충전
-//    @PatchMapping("/charge")
-//    public ResponseEntity<ResponseDto> chargeWallet(@RequestBody ChargeReqDto reqDto) {
-//        //지갑 충전
-//        return chargeUc.execute(reqDto.getUserId(), reqDto.getAmount());
-//    }
+    // 사용자 Id 를 갖는 Wallet 에 Money 충전
+    @PatchMapping("/charge")
+    public ResponseEntity<ResponseDto> chargeWallet(@RequestBody WalletReqDto reqDto, @RequestParam String amount) {
+        //지갑 충전
+        return ResponseEntity.status(HttpStatus.OK).body(chargeUc.execute(reqDto.getUserId(), amount));
+    }
 }
