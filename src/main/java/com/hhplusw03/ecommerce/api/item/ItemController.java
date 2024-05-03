@@ -1,7 +1,6 @@
 package com.hhplusw03.ecommerce.api.item;
 
 import com.hhplusw03.ecommerce.api.item.dto.request.ItemReqDto;
-import com.hhplusw03.ecommerce.api.item.dto.response.ItemResDto;
 import com.hhplusw03.ecommerce.api.item.usecase.RegisterItemUseCase;
 import com.hhplusw03.ecommerce.api.responseDto.ResponseDto;
 import com.hhplusw03.ecommerce.api.item.usecase.ReadItemUseCase;
@@ -27,10 +26,9 @@ public class ItemController {
         return ResponseEntity.status(HttpStatus.OK).body((ResponseDto) itemRegUc.execute(itemReqDto.getName(), itemReqDto.getPrice(), itemReqDto.getSeller(), itemReqDto.getStock()));
     }
 
-//    @GetMapping("/{itemId}")
-//    public ResponseEntity<ResponseDto> readItemInfo(@RequestParam Long itemId){
-//        // 단일 상품의 상세 페이지 조회
-//        ItemDto itemDto = itemReader.execute(itemId);
-//        return ResponseEntity.status(HttpStatus.OK).body(new ItemResDto(itemDto));
-//    }
+    @GetMapping("/{itemId}")
+    public ResponseEntity<ResponseDto> readItemInfo(@PathVariable String itemId){
+        // 단일 상품의 상세 페이지 조회
+        return ResponseEntity.status(HttpStatus.OK).body((ResponseDto) itemReadUc.execute(itemId));
+    }
 }

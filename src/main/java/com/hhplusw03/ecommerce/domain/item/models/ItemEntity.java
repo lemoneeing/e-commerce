@@ -2,10 +2,12 @@ package com.hhplusw03.ecommerce.domain.item.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @Table(name="Item")
+@NoArgsConstructor
 public class ItemEntity{
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
