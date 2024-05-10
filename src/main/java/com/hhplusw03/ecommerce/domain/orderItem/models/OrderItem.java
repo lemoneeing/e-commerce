@@ -18,6 +18,12 @@ public class OrderItem {
     Long orderCount;
     Long price;
 
+    public OrderItem(Long orderId, Long itemId, Long orderCount, Long price){
+        this.orderId = orderId;
+        this.itemId = itemId;
+        this.orderCount = orderCount;
+        this.price = price;
+    }
     public Long getOrderId(){
         return this.orderId;
     }

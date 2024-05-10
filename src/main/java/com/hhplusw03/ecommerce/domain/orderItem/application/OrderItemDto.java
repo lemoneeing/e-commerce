@@ -6,16 +6,28 @@ public class OrderItemDto {
     Long orderId;
     Long itemId;
     Long orderCount;
-    Long orderPrice;
+    Long price;
 
     public OrderItemDto(OrderItem oi){
         this.orderId = oi.getOrderId();
         this.itemId = oi.getItemId();
         this.orderCount = oi.getOrderCount();
-        this.orderPrice = oi.getPrice();
+        this.price = oi.getPrice();
+    }
+
+    public Long getOrderId(){
+        return this.orderId;
+    }
+
+    public Long getItemId(){
+        return this.itemId;
+    }
+
+    public Long getOrderCount(){
+        return this.orderCount;
     }
 
     public Long getPrice(){
-        return this.orderPrice;
+        return this.price;
     }
 }
