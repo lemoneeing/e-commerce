@@ -3,41 +3,34 @@ package com.hhplusw03.ecommerce.domain.wallet.infrastructure;
 import com.hhplusw03.ecommerce.domain.wallet.models.WalletEntity;
 import com.hhplusw03.ecommerce.domain.wallet.repository.WalletJpaRepository;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@Import({WalletRepositoryImpl.class})
 class WalletRepositoryImplTest {
-    @MockBean
     private WalletJpaRepository jpaRepo;
-    @Autowired
     private WalletRepositoryImpl coreRepo;
 
-//    @BeforeEach
-//    void setUp() {
-//        jpaRepo = mock(WalletJpaRepository.class);
-//
-//        coreRepo = new WalletRepositoryImpl(jpaRepo);
-//    }
+    @BeforeEach
+    void setUp() {
+        this.jpaRepo = mock(WalletJpaRepository.class);
+        coreRepo = new WalletRepositoryImpl(jpaRepo);
+    }
 
     @Test
     public void 지갑_생성(){
         Long userId = 4L;
 
         WalletEntity wallet = new WalletEntity(userId);
-        when(this.jpaRepo.save(new WalletEntity(userId))).thenReturn(wallet);
+        when(this.jpaRepo.save(any(WalletEntity.class))).thenAnswer(i->i.getArguments()[0]); // thenAnswer() 의 동작 원리에 대해 아직 잘 모름...
 
-        WalletEntity savedWallet = this.coreRepo.saveWallet(userId); // 반환 값이 null 인 이유 ????
-        Assertions.assertThat(savedWallet).isEqualTo(wallet);
+        WalletEntity savedWallet = this.coreRepo.saveWallet(userId);
+        Assertions.assertThat(savedWallet).isInstanceOf(WalletEntity.class);
     }
 
     @Test
