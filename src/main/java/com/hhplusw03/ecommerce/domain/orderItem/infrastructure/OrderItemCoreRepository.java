@@ -1,7 +1,7 @@
 package com.hhplusw03.ecommerce.domain.orderItem.infrastructure;
 
 import com.hhplusw03.ecommerce.domain.orderItem.application.OrderItemRepository;
-import com.hhplusw03.ecommerce.domain.orderItem.models.OrderItem;
+import com.hhplusw03.ecommerce.domain.orderItem.models.OrderItemEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -13,7 +13,7 @@ public class OrderItemCoreRepository implements OrderItemRepository {
     }
 
     @Override
-    public OrderItem saveOrderItem(Long orderId, Long itemId, Long orderCount, Long price){
-        return this.jpaRepository.save(new OrderItem(orderId, itemId, orderCount, price));
+    public OrderItemEntity saveOrderItem(Long orderId, Long itemId, Long orderCount, Long price){
+        return this.jpaRepository.save(new OrderItemEntity(orderId, itemId, orderCount, price));
     }
 }

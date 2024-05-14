@@ -1,6 +1,6 @@
 package com.hhplusw03.ecommerce.domain.orderItem.application;
 
-import com.hhplusw03.ecommerce.domain.orderItem.models.OrderItem;
+import com.hhplusw03.ecommerce.domain.orderItem.models.OrderItemEntity;
 
 public class OrderItemDto {
     Long orderId;

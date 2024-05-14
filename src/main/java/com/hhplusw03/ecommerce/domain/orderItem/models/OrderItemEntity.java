@@ -1,14 +1,11 @@
 package com.hhplusw03.ecommerce.domain.orderItem.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Getter;
+import jakarta.persistence.*;
 
 
 @Entity
-public class OrderItem {
+@Table(name="OrderItem")
+public class OrderItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +15,7 @@ public class OrderItem {
     Long orderCount;
     Long price;
 
-    public OrderItem(Long orderId, Long itemId, Long orderCount, Long price){
+    public OrderItemEntity(Long orderId, Long itemId, Long orderCount, Long price){
         this.orderId = orderId;
         this.itemId = itemId;
         this.orderCount = orderCount;
@@ -27,6 +24,8 @@ public class OrderItem {
     public Long getOrderId(){
         return this.orderId;
     }
+
+    public void setOrderId(Long orderId) { this.orderId = orderId; }
 
     public Long getItemId(){
         return this.itemId;
