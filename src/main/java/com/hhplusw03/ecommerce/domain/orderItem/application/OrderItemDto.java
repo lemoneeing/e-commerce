@@ -8,7 +8,14 @@ public class OrderItemDto {
     Long orderCount;
     Long price;
 
-    public OrderItemDto(OrderItem oi){
+    public OrderItemDto(Long itemId, Long count, Long price){
+        this.orderId = null;
+        this.itemId = itemId;
+        this.orderCount = count;
+        this.price = price;
+    }
+
+    public OrderItemDto(OrderItemEntity oi){
         this.orderId = oi.getOrderId();
         this.itemId = oi.getItemId();
         this.orderCount = oi.getOrderCount();
