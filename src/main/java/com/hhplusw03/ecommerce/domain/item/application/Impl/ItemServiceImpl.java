@@ -27,4 +27,11 @@ public class ItemServiceImpl implements ItemService {
     public ItemResult readItem(Long itemId) {
         return new ItemDto(itemRepo.readItem(itemId));
     }
+
+    public Boolean checkStock(Long itemId){
+        ItemDto item = new ItemDto(this.itemRepo.readItem(itemId));
+
+        if (item.getStock() > 0) return true;
+        else return false;
+    }
 }
