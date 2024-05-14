@@ -31,24 +31,23 @@ class OrderItemServiceTest {
         Assertions.assertThat(createdOrderItemDto.getPrice()).isEqualTo(price);
     }
 
-//    @Test
-//    public void 단일_주문_상품_추가_서비스(){
-//        Long orderId = 1L;
-//        Long itemId = 1L;
-//        Long orderCount = 1L;
-//        Long price = 1000L;
-//
-//        OrderItemEntity orderIt = new OrderItemEntity(orderId, itemId, orderCount, price);
-//        when(repo.saveOrderItem(orderId, itemId, orderCount, price)).thenReturn(orderIt);
-//
-//        OrderItemDto orderItDto = svc.createOrderItem(orderId, itemId, orderCount, price);
-//
-//        Assertions.assertThat(orderItDto).isInstanceOf(OrderItemDto.class);
-//        Assertions.assertThat(orderItDto.getOrderId()).isEqualTo(orderId);
-//        Assertions.assertThat(orderItDto.getItemId()).isEqualTo(itemId);
-//        Assertions.assertThat(orderItDto.getOrderCount()).isEqualTo(orderCount);
-//        Assertions.assertThat(orderItDto.getPrice()).isEqualTo(price);
-//
-//        verify(repo, times(1)).saveOrderItem(orderId, itemId, orderCount, price);
-//    }
+    @Test
+    public void 주문_상품_저장(){
+        Long orderId = 1L;
+        Long itemId = 1L;
+        Long orderCount = 2L;
+        Long price = 1000L;
+
+        OrderItemDto dto = new OrderItemDto(itemId, orderCount, price);
+        dto.setOrderId(orderId);
+        when(this.repo.saveOrderItem(orderId, itemId, orderCount, price)).thenReturn(dto.toEntity());
+
+        OrderItemDto savedOrderItemDto = this.svc.saveOrderItem(dto);
+
+        Assertions.assertThat(savedOrderItemDto).isInstanceOf(OrderItemDto.class);
+        Assertions.assertThat(savedOrderItemDto.getOrderId()).isEqualTo(orderId);
+        Assertions.assertThat(savedOrderItemDto.getItemId()).isEqualTo(itemId);
+        Assertions.assertThat(savedOrderItemDto.getOrderCount()).isEqualTo(orderCount);
+        Assertions.assertThat(savedOrderItemDto.getPrice()).isEqualTo(price);
+    }
 }

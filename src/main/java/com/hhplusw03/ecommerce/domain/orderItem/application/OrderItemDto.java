@@ -26,6 +26,8 @@ public class OrderItemDto {
         return this.orderId;
     }
 
+    public void setOrderId(Long orderId) { this.orderId = orderId; }
+
     public Long getItemId(){
         return this.itemId;
     }
@@ -36,5 +38,9 @@ public class OrderItemDto {
 
     public Long getPrice(){
         return this.price;
+    }
+
+    public OrderItemEntity toEntity(){
+        return new OrderItemEntity(this.orderId, this.itemId, this.orderCount, this.price);
     }
 }
